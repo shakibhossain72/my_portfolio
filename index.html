@@ -1,13 +1,769 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Google AI Studio App</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shakib Hossain | Flutter Developer Portfolio</title>
+
+    <!-- Google Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #FF4500;
+            /* Your Accept Orange */
+            --bg: #f2f7f9;
+            --card: #ffffff;
+            --text: #222222;
+            --text-light: #555555;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+        }
+
+        [data-theme="dark"] {
+            --bg: #050a14;
+            --card: #111827;
+            --text: #f3f4f6;
+            --text-light: #a1a1aa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            transition: var(--transition);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- HEADER --- */
+        header {
+            background: var(--card);
+            padding: 12px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 20px;
+            text-decoration: none;
+            color: var(--text);
+        }
+
+        .header-brand span {
+            color: var(--primary);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 5px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 14px;
+            padding: 10px 18px;
+            border-radius: 12px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .mobile-toggle {
+            display: none;
+            font-size: 24px;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        /* --- SMART DRAWER --- */
+        .drawer {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 280px;
+            height: 100%;
+            background: var(--card);
+            z-index: 2000;
+            padding: 60px 20px;
+            transition: var(--transition);
+            box-shadow: -10px 0 40px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid var(--primary);
+        }
+
+        .drawer.open {
+            right: 0;
+        }
+
+        .drawer ul {
+            list-style: none;
+        }
+
+        .drawer ul li {
+            margin-bottom: 12px;
+        }
+
+        .drawer ul li a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 600;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 14px 20px;
+            border-radius: 15px;
+            transition: var(--transition);
+            background: var(--bg);
+            cursor: pointer;
+        }
+
+        .drawer ul li a:hover,
+        .drawer ul li a.active {
+            background: var(--primary);
+            color: white !important;
+            transform: translateX(-10px);
+        }
+
+        .close-drawer {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 32px;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        /* --- LAYOUT --- */
+        .container {
+            max-width: 1400px;
+            margin: 40px auto;
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 30px;
+            padding: 0 20px;
+        }
+
+        /* --- SIDEBAR --- */
+        aside {
+            background: var(--card);
+            padding: 40px 30px;
+            border-radius: 25px;
+            text-align: center;
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+            box-shadow: var(--shadow);
+        }
+
+        .profile-img {
+            width: 100%;
+            border-radius: 25px;
+            object-fit: cover;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+        }
+
+        .role-tag {
+            background: rgba(255, 69, 0, 0.1);
+            color: var(--primary);
+            padding: 6px 20px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 25px;
+        }
+
+        .social-box {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .social-box a {
+            width: 45px;
+            height: 45px;
+            background: var(--bg);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text);
+            font-size: 20px;
+            transition: var(--transition);
+        }
+
+        .social-box a:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        .contact-info {
+            text-align: left;
+            background: var(--bg);
+            padding: 25px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+        }
+
+        .info-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 18px;
+        }
+
+        .info-row i {
+            color: var(--primary);
+            font-size: 18px;
+        }
+
+        .info-row p {
+            font-size: 11px;
+            color: var(--text-light);
+        }
+
+        .info-row span {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .btn-cv {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 15px;
+            width: 100%;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-weight: 700;
+            transition: var(--transition);
+        }
+
+        .btn-cv:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 20px rgba(255, 69, 0, 0.3);
+        }
+
+        /* --- CONTENT --- */
+        main {
+            background: var(--card);
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: var(--shadow);
+        }
+
+        .tab-content {
+            display: none;
+            animation: slideUp 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .title {
+            font-size: 30px;
+            margin-bottom: 35px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 5px;
+            background: var(--primary);
+            border-radius: 10px;
+        }
+
+        /* --- EXPERIENCE & EDUCATION --- */
+        .resume-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .res-item {
+            background: var(--bg);
+            padding: 25px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .res-item span {
+            font-size: 12px;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .res-list {
+            margin-top: 15px;
+            list-style: none;
+        }
+
+        .res-list li {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 18px;
+            line-height: 1.6;
+        }
+
+        .res-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .skills-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-tag {
+            background: var(--bg);
+            padding: 8px 15px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        /* --- WORK GRID --- */
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .work-card {
+            background: var(--bg);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            transition: var(--transition);
+            text-decoration: none;
+            color: var(--text);
+            border: 1px solid transparent;
+        }
+
+        .work-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            background: var(--card);
+            box-shadow: var(--shadow);
+        }
+
+        .work-card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            object-fit: cover;
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            aside {
+                position: static;
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+            nav ul {
+                display: none;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+
+            .resume-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body data-theme="light">
+
+    <header>
+        <a href="#" class="header-brand">SHAKIB <span>HOSSAIN</span></a>
+        <div class="nav-right">
+            <nav>
+                <ul>
+                    <li><a class="active" onclick="showTab('about')"><i class="fa-regular fa-user"></i> About</a></li>
+                    <li><a onclick="showTab('resume')"><i class="fa-regular fa-file-lines"></i> Resume</a></li>
+                    <li><a onclick="showTab('work')"><i class="fa-solid fa-briefcase"></i> Work</a></li>
+                    <li><a onclick="showTab('contact')"><i class="fa-regular fa-envelope"></i> Contact</a></li>
+                </ul>
+            </nav>
+            <div onclick="toggleTheme()" style="cursor:pointer; font-size:20px;"><i id="theme-icon"
+                    class="fa-solid fa-moon"></i></div>
+            <div class="mobile-toggle" onclick="toggleDrawer()"><i class="fa-solid fa-bars-staggered"></i></div>
+        </div>
+    </header>
+
+    <!-- SMART DRAWER -->
+    <div class="drawer" id="mobileDrawer">
+        <div class="close-drawer" onclick="toggleDrawer()">&times;</div>
+        <h3 style="margin-bottom: 30px; color: var(--primary);">Menu</h3>
+        <ul>
+            <li><a id="m-about" class="active" onclick="showTab('about'); toggleDrawer()"><i
+                        class="fa-regular fa-user"></i> About</a></li>
+            <li><a id="m-resume" onclick="showTab('resume'); toggleDrawer()"><i class="fa-regular fa-file-lines"></i>
+                    Resume</a></li>
+            <li><a id="m-work" onclick="showTab('work'); toggleDrawer()"><i class="fa-solid fa-briefcase"></i> Work</a>
+            </li>
+            <li><a id="m-contact" onclick="showTab('contact'); toggleDrawer()"><i class="fa-regular fa-envelope"></i>
+                    Contact</a></li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <!-- Sidebar -->
+        <aside>
+            <img src="https://lh3.googleusercontent.com/d/19XwyDEN9iLRSt4gq-ppPvxMHOZw6lpis" class="profile-img">
+            <h2 style="font-weight: 700;">Shakib Hossain</h2>
+            <div class="role-tag">Flutter Developer</div>
+            <div class="social-box">
+                <a href="https://github.com/shakibhossain72" target="_blank"><i class="fa-brands fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/shakib-hossain-39a672230/" target="_blank"><i
+                        class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+            <div class="contact-info">
+                <div class="info-row"><i class="fa-solid fa-phone"></i>
+                    <div>
+                        <p>Phone</p><span>+8801781559169</span>
+                    </div>
+                </div>
+                <div class="info-row"><i class="fa-solid fa-envelope"></i>
+                    <div>
+                        <p>Email</p><span>shahriarshakibsk@gmail.com</span>
+                    </div>
+                </div>
+                <div class="info-row"><i class="fa-solid fa-location-dot"></i>
+                    <div>
+                        <p>Location</p><span>Mohakhali, Dhaka-1212</span>
+                    </div>
+                </div>
+            </div>
+            <a href="https://drive.google.com/uc?export=download&id=12-jbXBR-CFJKdtAxL31oYh6EECzHcBm3" class="btn-cv">
+                <i class="fa-solid fa-download"></i> Download CV
+            </a>
+        </aside>
+
+        <!-- Main Content -->
+        <main>
+            <!-- About Section -->
+            <section id="about" class="tab-content active">
+                <h2 class="title">About Me</h2>
+                <p style="margin-bottom: 25px;">Flutter Developer with 2+ years of hands-on experience delivering
+                    scalable, high-performance cross-platform apps on Google Play Store and Apple App Store. Skilled in
+                    Dart, RESTful APls, Firebase, and modern state management (Provider, GetX, BLoC, Riverpod). Strong
+                    focus on clean architecture, polished UI/UX, and turning business requirements into production-ready
+                    solutions.</p>
+
+                <!-- Personal Info Section -->
+                <div class="res-item">
+                    <h4><i class="fa-solid fa-id-card" style="color: var(--primary);"></i> Personal Information</h4>
+                    <div
+                        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-top: 15px;">
+                        <p style="font-size: 13px;"><b>Name:</b> MD. Shakib Hossain</p>
+                        <p style="font-size: 13px;"><b>Birth Date:</b> 08-10-1999</p>
+                        <p style="font-size: 13px;"><b>Status:</b> Married</p>
+                        <p style="font-size: 13px;"><b>Gender:</b> Male</p>
+                        <p style="font-size: 13px;"><b>Blood Group:</b> B+</p>
+                        <p style="font-size: 13px;"><b>National ID:</b> 9889766611</p>
+                        <p style="font-size: 13px;"><b>Religion:</b> Islam</p>
+                        <p style="font-size: 13px;"><b>Nationality:</b> Bangladesh</p>
+                    </div>
+                </div>
+
+                <!-- Updated Technical Skills Section -->
+                <div class="res-item">
+                    <h4><i class="fa-solid fa-microchip"
+                            style="color: var(--primary); margin-right: 10px;"></i>Technical Skills</h4>
+                    <ul class="res-list">
+                        <li>Strong dart programming and scripting language skills.</li>
+                        <li>State Management (Provider, GetX, BLoC, Riverpod).</li>
+                        <li>Strong understanding of Object-Oriented Programming (OOP) principles.</li>
+                        <li>Payment Gateway Integration(Stripe, PayPal, Square).</li>
+                        <li>Experience working on Git, Firebase, Supabase, JSON, RESTful APIs integration.</li>
+                        <li>Push Notification Implementation (Firebase Cloud Messaging).</li>
+                        <li>Third-party SDK Integration (Google Maps, Ads, Social Login).</li>
+                        <li>Local & Cloud Database (SQLite, Hive, Shared Preferences).</li>
+                        <li>App Publishing & Release Management (Google Play Console & Apple App Store).</li>
+                        <li>Knowledge of Native Android development.</li>
+                        <li>Knowledge about CI/CD & Deployment (Codemagic, GitHub Actions, Fastlane).</li>
+                        <li>Git & Version Control (GitHub/GitLab)</li>
+                        <li>Problem-solving and debugging skills.</li>
+                        <li>I Have Strong Knowledge about UI/UX principles & process.</li>
+                        <li>Other programming languages knowledge, including Python, Java, C#, and C++.</li>
+                    </ul>
+                </div>
+
+            </section>
+
+            <!-- Resume Section -->
+            <section id="resume" class="tab-content">
+                <h2 class="title">Resume</h2>
+                <div class="resume-grid">
+                    <div>
+                        <h3><i class="fa-solid fa-briefcase" style="color: var(--primary);"></i> Job Experience</h3>
+                        <div class="res-item">
+                            <span>Jan 2025 - Present</span>
+                            <h4>SM TECNOLOGY</h4>
+                            <p style="font-weight: 700; color: var(--primary); margin-top: 10px;">Job Responsibilities:
+                            </p>
+                            <ul class="res-list">
+                                <li>Architected and developed multiple cross-platform mobile applications using Flutter,
+                                    ensuring high performance and code maintainability.</li>
+                                <li>Integrated RESTful APIs and Firebase services for seamless data handling and
+                                    real-time functionality.</li>
+                                <li>Successfully published and maintained multiple apps on Google Play Store and Apple
+                                    App Store, achieving compliance with platform guidelines.</li>
+                                <li>Conducted code reviews and mentored junior developers on Flutter best practices,
+                                    clean code principles, and OOP design patterns.</li>
+                                <li>Optimized app performance through widget tree analysis, lazy loading, and efficient
+                                    state management, reducing memory usage and improving frame rates.</li>
+                                <li>Collaborated closely with cross-functional teams (designers, backend developers, QA)
+                                    and clients to ensure smooth development and timely delivery of production-ready
+                                    applications.</li>
+                                <li>Optimized app performance and resolved bugs based on user feedback, enhancing
+                                    overall stability.</li>
+                                <li>Led client meetings and requirement gathering sessions to translate business needs
+                                    into technical specifications and actionable development tasks.</li>
+                            </ul>
+                        </div>
+                        <div class="res-item">
+                            <span>6 Month Internship</span>
+                            <h4>Radisson Digital Technologies Ltd</h4>
+                            <p style="font-weight: 700; color: var(--primary); margin-top: 10px;">Responsibilities:</p>
+                            <ul class="res-list">
+                                <li>Successfully completed 3 mobile application projects using Flutter, from requirement
+                                    analysis to deployment.</li>
+                                <li>Implemented clean architecture (MVVM/MVC) and state management (Provider/GetX) to
+                                    ensure scalable and maintainable codebases.</li>
+                                <li>Integrated RESTful APIs and handled JSON parsing/serialization for dynamic data
+                                    rendering across applications.</li>
+                                <li>Worked with Firebase services (Authentication, Firestore, Cloud Messaging) to
+                                    implement real-time features and push notifications.</li>
+                                <li>Designed and implemented responsive, pixel-perfect UI following Figma/Adobe XD
+                                    design specifications.</li>
+                                <li>Debugged and resolved critical performance issues, improving app load time and
+                                    reducing crash rates.</li>
+                                <li>Collaborated with senior developers in code reviews and version control workflows
+                                    (Git/GitHub) to maintain code quality standards.</li>
+                                <li>Gained hands-on exposure to local database management using SQLite and Shared
+                                    Preferences for offline-first functionality.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                    <div>
+                        <h3><i class="fa-solid fa-graduation-cap" style="color: var(--primary);"></i> Education</h3>
+                        <div class="res-item">
+                            <span>2019 - 2023</span>
+                            <h4>B.Sc in CSE</h4>
+                            <p>Sonargaon University (SU)</p>
+                            <p>Result: 3.13 | Board: Dhaka</p>
+                        </div>
+                        <div class="res-item">
+                            <span>2018</span>
+                            <h4>HSC in Science</h4>
+                            <p>Dighapatia M.K Honours Collage, Natore</p>
+                            <p>Result: 3.50 | Board: Rajshahi</p>
+                        </div>
+                        <div class="res-item">
+                            <span>2016</span>
+                            <h4>SSC in Science</h4>
+                            <p>Patul Hapania School & College</p>
+                            <p>Result: 3.50 | Board: Rajshahi</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Work Section -->
+            <section id="work" class="tab-content">
+                <h2 class="title">Live Projects</h2>
+                <div class="work-grid">
+                    <a href="https://play.google.com/store/apps/details?id=com.vejthani.vhealth" target="_blank"
+                        class="work-card">
+                        <img src="https://lh3.googleusercontent.com/d/1v1kasvdfMpf_0PVltvAEt_dQjHW7JFRw">
+                        <h5>VHealth by Vejthani</h5>
+                    </a>
+                    <a href="https://play.google.com/store/apps/details?id=com.mouj.mouj2025" target="_blank"
+                        class="work-card">
+                        <img src="https://lh3.googleusercontent.com/d/1mWswx4TTv7clfVqpVDd11T4NwgfT426t">
+                        <h5>MOUJ – Fun Unlimited</h5>
+                    </a>
+                    <a href="https://play.google.com/store/apps/details?id=com.app.getlikenurse" target="_blank"
+                        class="work-card">
+                        <img src="https://lh3.googleusercontent.com/d/1sFZDS3sGFUL85sTVruTNgebDygKHms5p">
+                        <h5>Get Like Nurse</h5>
+                    </a>
+                    <a href="https://play.google.com/store/apps/details?id=com.app.kick360" target="_blank"
+                        class="work-card">
+                        <img src="https://lh3.googleusercontent.com/d/1kug8-zBhhhpoAMNDYzyKiXCgpRyoNx60">
+                        <h5>Kick 360</h5>
+                    </a>
+                    <a href="https://play.google.com/store/apps/details?id=com.afcomz.afcomz.afcomz" target="_blank"
+                        class="work-card">
+                        <img src="https://lh3.googleusercontent.com/d/1KAdiguOoz8cBuxlnli60WjAC1yNhhuhB">
+                        <h5>Afcomz</h5>
+                    </a>
+                    <a href="https://play.google.com/store/apps/details?id=com.riyaada.app" target="_blank"
+                        class="work-card">
+                        <img src="https://lh3.googleusercontent.com/d/1fUV-9unMJpyDM7wrcMVgstItVCWOky9b">
+                        <h5>Riyaada</h5>
+                    </a>
+                    <a href="https://play.google.com/store/apps/details?id=com.sandlinkmarketplace.sandlink"
+                        target="_blank" class="work-card">
+                        <img src="https://lh3.googleusercontent.com/d/1rAFHP6RNbprWDxM_yndSyZLQmgp7gBRp">
+                        <h5>SandLink Marketplace</h5>
+                    </a>
+                    <a href="https://play.google.com/store/apps/details?id=com.anesthe.link" target="_blank"
+                        class="work-card">
+                        <img src="https://lh3.googleusercontent.com/d/1oVhbNIwxUZCJ2jtHCQQmcDtZR6oudw3q">
+                        <h5>AnestheLink</h5>
+                    </a>
+                    <a href="https://play.google.com/store/apps/details?id=com.localfy.directory" target="_blank"
+                        class="work-card">
+                        <img src="https://lh3.googleusercontent.com/d/1y-GQrBzXDT7HhLsNFL1Qd7NDz5RMVAaW">
+                        <h5>Localfy</h5>
+                    </a>
+                    <a href="https://play.google.com/store/apps/details?id=com.vet.check.track" target="_blank"
+                        class="work-card">
+                        <img src="https://lh3.googleusercontent.com/d/1ay8IavTwcokdnk8A-W6ZqZT1Fd3HOfqI">
+                        <h5>Vet Check</h5>
+                    </a>
+                    <a href="https://play.google.com/store/apps/details?id=com.colizen.josi" target="_blank"
+                        class="work-card">
+                        <img src="https://lh3.googleusercontent.com/d/1QIGvxo5Zd--ejMDBwQSVXYagiKm-foa5">
+                        <h5>Colizen_app</h5>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact" class="tab-content">
+                <h2 class="title">Contact Me</h2>
+                <div style="background: var(--bg); padding: 40px; border-radius: 20px;">
+                    <form action="https://formspree.io/f/shahriarshakibsk@gmail.com" method="POST">
+                        <div style="margin-bottom: 20px;"><input type="text" name="name"
+                                style="width: 100%; padding: 15px; border: none; border-bottom: 2px solid #ddd; background: transparent; outline: none; color: var(--text);"
+                                placeholder="Name" required></div>
+                        <div style="margin-bottom: 20px;"><input type="email" name="email"
+                                style="width: 100%; padding: 15px; border: none; border-bottom: 2px solid #ddd; background: transparent; outline: none; color: var(--text);"
+                                placeholder="Email" required></div>
+                        <div style="margin-bottom: 30px;"><textarea name="message"
+                                style="width: 100%; padding: 15px; border: none; border-bottom: 2px solid #ddd; background: transparent; outline: none; color: var(--text);"
+                                rows="4" placeholder="Message" required></textarea></div>
+                        <button type="submit" class="btn-cv" style="width: fit-content; padding: 15px 40px;">Send
+                            Message</button>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            document.querySelectorAll('nav ul li a, .drawer ul li a').forEach(link => link.classList.remove('active'));
+            const dLink = document.querySelector(`nav ul li a[onclick*="${tabId}"]`);
+            const mLink = document.getElementById('m-' + tabId);
+            if (dLink) dLink.classList.add('active');
+            if (mLink) mLink.classList.add('active');
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.getElementById('theme-icon');
+            if (body.getAttribute('data-theme') === 'light') {
+                body.setAttribute('data-theme', 'dark');
+                icon.classList.replace('fa-moon', 'fa-sun');
+            } else {
+                body.setAttribute('data-theme', 'light');
+                icon.classList.replace('fa-sun', 'fa-moon');
+            }
+        }
+
+        function toggleDrawer() {
+            document.getElementById('mobileDrawer').classList.toggle('open');
+        }
+    </script>
+</body>
+
+</html>
