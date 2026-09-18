@@ -111,6 +111,26 @@
             cursor: pointer;
         }
 
+        .theme-toggle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(255, 69, 0, 0.25);
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(15deg) scale(1.08);
+            box-shadow: 0 8px 20px rgba(255, 69, 0, 0.35);
+        }
+
         /* --- SMART DRAWER --- */
         .drawer {
             position: fixed;
@@ -199,15 +219,25 @@
             box-shadow: var(--shadow);
         }
 
+        .profile-name {
+            font-size: 26px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
         .role-tag {
             background: rgba(255, 69, 0, 0.1);
             color: var(--primary);
-            padding: 6px 20px;
+            padding: 8px 20px;
             border-radius: 10px;
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 700;
             display: inline-block;
             margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .social-box {
@@ -338,7 +368,7 @@
         /* --- EXPERIENCE & EDUCATION --- */
         .resume-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr;
             gap: 30px;
             margin-bottom: 40px;
         }
@@ -399,10 +429,12 @@
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 20px;
         }
+
         .store-title {
-    margin-top: 45px;
-    margin-bottom: 25px;
-}
+            margin-top: 45px;
+            margin-bottom: 25px;
+            color: var(--primary);
+        }
 
         .work-card {
             background: var(--bg);
@@ -469,8 +501,9 @@
                     <li><a onclick="showTab('contact')"><i class="fa-regular fa-envelope"></i> Contact</a></li>
                 </ul>
             </nav>
-            <div onclick="toggleTheme()" style="cursor:pointer; font-size:20px;"><i id="theme-icon"
-                    class="fa-solid fa-moon"></i></div>
+            <div class="theme-toggle" onclick="toggleTheme()">
+                <i id="theme-icon" class="fa-solid fa-moon"></i>
+            </div>
             <div class="mobile-toggle" onclick="toggleDrawer()"><i class="fa-solid fa-bars-staggered"></i></div>
         </div>
     </header>
@@ -495,8 +528,8 @@
         <!-- Sidebar -->
         <aside>
             <img src="https://lh3.googleusercontent.com/d/19XwyDEN9iLRSt4gq-ppPvxMHOZw6lpis" class="profile-img">
-            <h2 style="font-weight: 700;">Shakib Hossain</h2>
-            <div class="role-tag">Flutter Developer</div>
+            <h2 class="profile-name">SHAKIB HOSSAIN</h2>
+            <div class="role-tag">FLUTTER DEVELOPER</div>
             <div class="social-box">
                 <a href="https://github.com/shakibhossain72" target="_blank"><i class="fa-brands fa-github"></i></a>
                 <a href="https://www.linkedin.com/in/shakib-hossain-39a672230/" target="_blank"><i
