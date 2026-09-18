@@ -348,6 +348,7 @@
         }
 
         .title {
+            display: inline-block;
             font-size: 30px;
             margin-bottom: 35px;
             position: relative;
@@ -359,8 +360,8 @@
             position: absolute;
             left: 0;
             bottom: 0;
-            width: 50px;
-            height: 5px;
+            width: 100%;
+            height: 4px;
             background: var(--primary);
             border-radius: 10px;
         }
@@ -393,7 +394,7 @@
         }
 
         .res-list li {
-            font-size: 13px;
+            font-size: 14px;
             color: var(--text-light);
             margin-bottom: 10px;
             position: relative;
@@ -430,10 +431,15 @@
             gap: 20px;
         }
 
+        /* Google play Store and App Store titles Gap  */
         .store-title {
-            margin-top: 45px;
+            margin-top: 10px;
             margin-bottom: 25px;
             color: var(--primary);
+        }
+
+        .app-store-title {
+            margin-top: 35px;
         }
 
         .work-card {
@@ -562,32 +568,69 @@
             <!-- About Section -->
             <section id="about" class="tab-content active">
                 <h2 class="title">About Me</h2>
-                <p style="margin-bottom: 25px;">Flutter Developer with 2+ years of hands-on experience delivering
-                    scalable, high-performance cross-platform apps on Google Play Store and Apple App Store. Skilled in
-                    Dart, RESTful APls, Firebase, and modern state management (Provider, GetX, BLoC, Riverpod). Strong
-                    focus on clean architecture, polished UI/UX, and turning business requirements into production-ready
-                    solutions.</p>
+
+                <!-- About Text 1 -->
+                <div class="res-item">
+                    <p style="font-size: 15px; color: var(--text-light); line-height: 1.8; margin: 0;">
+                        I'm a passionate and results driven Flutter Developer with 2+ years of hands-on experience
+                        designing,
+                        developing, and successfully deploying high-quality, scalable cross-platform mobile applications
+                        on both
+                        Google Play Store and Apple App Store. I have extensive experience working with clients across
+                        local and
+                        international markets, effectively communicating across diverse cultures and business contexts,
+                        delivering
+                        products within set timelines, and ensuring top-tier product quality, earning client trust and
+                        building
+                        long-term partnerships along the way.
+                    </p>
+                </div>
+
+                <!-- About Text 2 -->
+                <div class="res-item">
+                    <p style="font-size: 15px; color: var(--text-light); line-height: 1.8; margin: 0;">
+                        On the technical side, I'm skilled in Dart, RESTful API integration, WebSocket and Socket.IO for
+                        real-time
+                        communication, Firebase (Auth, Firestore, Cloud Functions, Push Notifications), payment gateway
+                        integration
+                        (Square, Stripe, PayPal), and Google/Apple In-App Purchase implementation, along with modern
+                        state
+                        management architectures (Provider, GetX, BLoC, Riverpod). I write clean, maintainable, and
+                        scalable code
+                        following industry-standard patterns like MVVM and Clean Architecture, deliver polished and
+                        user-friendly
+                        UI/UX, and turn complex business requirements into fast, performance-optimized, production-ready
+                        solutions. I collaborate effectively within agile teams, consistently upholding on-time,
+                        quality-driven
+                        delivery on every project, making me a reliable, long-term technology partner.
+                    </p>
+                </div>
 
                 <!-- Personal Info Section -->
                 <div class="res-item">
-                    <h4><i class="fa-solid fa-id-card" style="color: var(--primary);"></i> Personal Information</h4>
+                    <h4 style="font-size: 17px;">
+                        <i class="fa-solid fa-id-card" style="color: var(--primary); margin-right: 10px;"></i>
+                        Personal Information
+                    </h4>
                     <div
                         style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-top: 15px;">
-                        <p style="font-size: 13px;"><b>Name:</b> MD. Shakib Hossain</p>
-                        <p style="font-size: 13px;"><b>Birth Date:</b> 08-10-1999</p>
-                        <p style="font-size: 13px;"><b>Status:</b> Married</p>
-                        <p style="font-size: 13px;"><b>Gender:</b> Male</p>
-                        <p style="font-size: 13px;"><b>Blood Group:</b> B+</p>
-                        <p style="font-size: 13px;"><b>National ID:</b> 9889766611</p>
-                        <p style="font-size: 13px;"><b>Religion:</b> Islam</p>
-                        <p style="font-size: 13px;"><b>Nationality:</b> Bangladesh</p>
+                        <p style="font-size: 14px;"><b>Name:</b> MD. Shakib Hossain</p>
+                        <p style="font-size: 14px;"><b>Birth Date:</b> 08-10-1999</p>
+                        <p style="font-size: 14px;"><b>Status:</b> Married</p>
+                        <p style="font-size: 14px;"><b>Gender:</b> Male</p>
+                        <p style="font-size: 14px;"><b>Blood Group:</b> B+</p>
+                        <p style="font-size: 14px;"><b>National ID:</b> 9889766611</p>
+                        <p style="font-size: 14px;"><b>Religion:</b> Islam</p>
+                        <p style="font-size: 14px;"><b>Nationality:</b> Bangladesh</p>
                     </div>
                 </div>
 
                 <!-- Updated Technical Skills Section -->
                 <div class="res-item">
-                    <h4><i class="fa-solid fa-microchip"
-                            style="color: var(--primary); margin-right: 10px;"></i>Technical Skills</h4>
+                    <h4 style="font-size: 17px;">
+                        <i class="fa-solid fa-microchip" style="color: var(--primary); margin-right: 10px;"></i>
+                        Technical Skills
+                    </h4>
                     <ul class="res-list">
                         <li>Strong dart programming and scripting language skills.</li>
                         <li>State Management (Provider, GetX, BLoC, Riverpod).</li>
@@ -614,7 +657,10 @@
                 <h2 class="title">Resume</h2>
                 <div class="resume-grid">
                     <div>
-                        <h3><i class="fa-solid fa-briefcase" style="color: var(--primary);"></i> Job Experience</h3>
+                        <h3 style="margin-bottom: 20px;">
+                            <i class="fa-solid fa-briefcase" style="color: var(--primary); margin-right: 10px;"></i>
+                            Job Experience
+                        </h3>
                         <div class="res-item">
                             <span>Jan 2025 - Present</span>
                             <h4>SM TECNOLOGY</h4>
@@ -667,21 +713,25 @@
 
 
                     <div>
-                        <h3><i class="fa-solid fa-graduation-cap" style="color: var(--primary);"></i> Education</h3>
+                        <h3 style="margin-bottom: 20px;">
+                            <i class="fa-solid fa-graduation-cap"
+                                style="color: var(--primary); margin-right: 10px;"></i>
+                            Education
+                        </h3>
                         <div class="res-item">
-                            <span>2019 - 2023</span>
+                            <!-- <span>2019 - 2023</span> -->
                             <h4>B.Sc in CSE</h4>
                             <p>Sonargaon University (SU)</p>
                             <p>Result: 3.13 | Board: Dhaka</p>
                         </div>
                         <div class="res-item">
-                            <span>2018</span>
+                            <!-- <span>2018</span> -->
                             <h4>HSC in Science</h4>
                             <p>Dighapatia M.K Honours Collage, Natore</p>
                             <p>Result: 3.50 | Board: Rajshahi</p>
                         </div>
                         <div class="res-item">
-                            <span>2016</span>
+                            <!-- <span>2016</span> -->
                             <h4>SSC in Science</h4>
                             <p>Patul Hapania School & College</p>
                             <p>Result: 3.50 | Board: Rajshahi</p>
@@ -755,7 +805,7 @@
 
 
                 <!-- App Store -->
-                <h3 class="store-title">App Store</h3>
+                <h3 class="store-title app-store-title">App Store</h3>
                 <div class="work-grid">
 
                     <a href="APP_STORE_LINK_HERE" target="_blank" class="work-card">
